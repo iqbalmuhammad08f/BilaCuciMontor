@@ -7,6 +7,8 @@ CREATE TABLE users (
     status BOOLEAN NOT NULL DEFAULT true
 );
 
+
+
 CREATE TABLE admins (
     id_admin SERIAL PRIMARY KEY,
     nama VARCHAR(50) NOT NULL,
@@ -37,6 +39,8 @@ CREATE TABLE members (
     status BOOLEAN NOT NULL DEFAULT true,
     id_user INT REFERENCES users(id_user) NOT NULL
 );
+
+INSERT INTO members(nama,id_user) VALUES ('budi',1) RETURNING id_member;
 
 CREATE TABLE paket_member (
     id_paket SERIAL PRIMARY KEY,

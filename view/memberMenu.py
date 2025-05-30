@@ -1,7 +1,9 @@
 import os
 import controller.usersControl as uc
+import controller.membersControl as mc
 
 def memberMenu():
+  run = True
   while True:
     os.system("cls")
     print("=== Member Menu ===")
@@ -12,20 +14,28 @@ def memberMenu():
     if user == "1":
       print()
     elif user == "2":
-      while True:
+      while run:
         os.system("cls")
         print("=== Register Member ===")
         nama = input("\nMasukkan nama:")
-        while True:
+        while run:
           username = input("Masukkan username: ")
           usernames = [user[1] for user in uc.read()]
-          if usernames == usernames:
+          if usernames in usernames:
             input("Username telah digunakan, Enter untuk mengulangi")
             continue
           else:
             break
         password = input("Masukkan password: ")
-        repeatPw = input("Ulangi Password: ")
+        while run:
+          repeatPw = input("Ulangi Password: ")
+          if password == repeatPw:
+            id_user = uc.add(username,password)
+            mc.add(id_user,nama)
+            input("Akun berhasil dibuat, Enter kembali")
+            run = False
+          else:
+            input("Password tidak sama, Enter untuk mengulangi")
     elif user == "0":
       break
     else:
