@@ -30,7 +30,7 @@ def memberMenu():
         while run:
           repeatPw = input("Ulangi Password: ")
           if password == repeatPw:
-            id_user = uc.add(username,password)
+            id_user = uc.addMember(username,password)
             mc.add(id_user,nama)
             input("Akun berhasil dibuat, Enter kembali")
             run = False

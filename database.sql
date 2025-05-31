@@ -18,14 +18,15 @@ CREATE TABLE admins (
     id_user INT REFERENCES users(id_user) NOT NULL
 );
 
-CREATE TABLE kasir (
-    id_kasir SERIAL PRIMARY KEY,
+CREATE TABLE karyawan (
+    id_karyawan SERIAL PRIMARY KEY,
     nama VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    nomor_hp VARCHAR(20) NOT NULL,
-    alamat TEXT NOT NULL,
-    status BOOLEAN NOT NULL DEFAULT true,
-    id_user INT REFERENCES users(id_user) NOT NULL
+    email VARCHAR(50),
+    nomor_hp VARCHAR(20),
+    alamat TEXT,
+    role VARCHAR(20) NOT NULL,
+    tanggal_masuk DATE NOT NULL DEFAULT now(),
+    status BOOLEAN NOT NULL DEFAULT true
 );
 
 CREATE TABLE members (

@@ -1,4 +1,5 @@
 import controller.database as db
+# import database as db
 
 def readAdmin():
   conn, cur = db.connectDB()
@@ -16,7 +17,7 @@ def readAdmin():
 def readKasir():
   conn, cur = db.connectDB()
   try:
-    query = "SELECT username,password FROM users WHERE role = 'kasir'"
+    query = "SELECT * FROM users WHERE role = 'kasir'"
     cur.execute(query)
     data = cur.fetchall()
     return data
@@ -26,7 +27,33 @@ def readKasir():
   finally:
     conn.close()
 
-def add(username, password):
+def editKasir(id_kasir, username, password):
+  conn, cur = db.connectDB()
+  try:
+    query = "UPDATE users SET username = %s, password = %s WHERE id_user = %s"
+    cur.execute(query, (username, password, id_kasir))
+    conn.commit()
+    return True
+  except Exception:
+    input("terjadi kesalahan pada controller users")
+    return False
+  finally:
+    conn.close()
+  
+def addKasir(username, password):
+  conn, cur = db.connectDB()
+  try:
+    query = "INSERT INTO users(username, password, role) VALUES(%s, %s, 'kasir')"
+    cur.execute(query, (username, password))
+    conn.commit()
+    return True
+  except Exception:
+    input("terjadi kesalahan pada controller users")
+    return False
+  finally:
+    conn.close()
+
+def addMember(username, password):
   conn, cur = db.connectDB()
   try:
     query = "INSERT INTO users(username, password, role) VALUES(%s, %s, 'member') RETURNING id_user"
