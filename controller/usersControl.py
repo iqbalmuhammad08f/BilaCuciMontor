@@ -27,6 +27,19 @@ def readKasir():
   finally:
     conn.close()
 
+def readMember():
+  conn, cur = db.connectDB()
+  try:
+    query = "SELECT * FROM users WHERE role = 'member'"
+    cur.execute(query)
+    data = cur.fetchall()
+    return data
+  except Exception:
+    input("terjadi kesalahan pada controller users")
+    return None
+  finally:
+    conn.close()
+
 def editKasir(id_kasir, username, password):
   conn, cur = db.connectDB()
   try:

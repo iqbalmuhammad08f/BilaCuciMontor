@@ -1,6 +1,7 @@
 import os
 import view.adminMenu as am
 import view.kasirMenu as km
+import view.memberMenu as mm
 import controller.usersControl as uc
 import controller.karyawanControl as kc
 import controller.membersControl as mc
@@ -74,7 +75,18 @@ def member():
     print("0. Exit")
     user = input("Masukkan pilihan : ")
     if user == "1":
-      print()
+      while True:
+        os.system("cls")
+        print("=== Login Member ===")
+        username = input("Masukkan username: ")
+        password = input("Masukkan password: ")
+        list_member = [user[1:3] for user in uc.readMember()]
+        if (username, password) in list_member:
+          mm.memberMenu(username)
+          break
+        else:
+          input("Username atau password tidak sesuai, Enter untuk mengulangi")
+          continue
     elif user == "2":
       while run:
         os.system("cls")
@@ -82,7 +94,7 @@ def member():
         nama = input("\nMasukkan nama:")
         while run:
           username = input("Masukkan username: ")
-          usernames = [user[1] for user in uc.read()]
+          usernames = [user[1] for user in uc.readMember()]
           if usernames in usernames:
             input("Username telah digunakan, Enter untuk mengulangi")
             continue
