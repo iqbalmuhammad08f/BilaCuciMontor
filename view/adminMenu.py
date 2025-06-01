@@ -18,7 +18,7 @@ def adminMenu():
     print("5. Mengelola harga member")
     print("6. melihat member")
     print("7. Melihat history transaksi")
-    print("0. Exit")
+    print("0. logout")
     user = input("Masukkan pilihan :")
     if user == "1":
       print()
