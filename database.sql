@@ -7,7 +7,10 @@ CREATE TABLE users (
     status BOOLEAN NOT NULL DEFAULT true
 );
 
+INSERT INTO users(username,password,role) VALUES('jamal','123','member');
+insert into admins(nama,email,nomor_hp,id_user) values('admin','admingmailcom','087711713783','1')
 
+select * from admins
 
 CREATE TABLE admins (
     id_admin SERIAL PRIMARY KEY,
@@ -40,8 +43,6 @@ CREATE TABLE members (
     status BOOLEAN NOT NULL DEFAULT true,
     id_user INT REFERENCES users(id_user) NOT NULL
 );
-
-INSERT INTO members(nama,id_user) VALUES ('budi',1) RETURNING id_member;
 
 CREATE TABLE paket_member (
     id_paket SERIAL PRIMARY KEY,
