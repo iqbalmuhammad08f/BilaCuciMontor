@@ -66,7 +66,6 @@ def kasir():
       break
 
 def member():
-  run = True
   while True:
     os.system("cls")
     print("=== Member Menu ===")
@@ -88,6 +87,7 @@ def member():
           input("Username atau password tidak sesuai, Enter untuk mengulangi")
           continue
     elif user == "2":
+      run = True
       while run:
         os.system("cls")
         print("=== Register Member ===")
@@ -95,7 +95,7 @@ def member():
         while run:
           username = input("Masukkan username: ")
           usernames = [user[1] for user in uc.readMember()]
-          if usernames in usernames:
+          if username in usernames:
             input("Username telah digunakan, Enter untuk mengulangi")
             continue
           else:

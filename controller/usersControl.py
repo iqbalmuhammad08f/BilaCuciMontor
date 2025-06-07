@@ -40,6 +40,22 @@ def readMember():
   finally:
     conn.close()
 
+def getmemberId(username):
+  conn, cur = db.connectDB()
+  try:
+    query = "SELECT id_user FROM users WHERE username = %s AND role = 'member'"
+    cur.execute(query, (username,))
+    id_user = cur.fetchone()
+    if id_user:
+      return id_user[0]
+    else:
+      return None
+  except Exception:
+    input("terjadi kesalahan pada controller users")
+    return None
+  finally:
+    conn.close()
+
 def editKasir(id_kasir, username, password):
   conn, cur = db.connectDB()
   try:

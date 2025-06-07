@@ -56,9 +56,8 @@ CREATE TABLE pembayaran_member (
     id_pembayaran SERIAL PRIMARY KEY,
     id_member INT REFERENCES members(id_member) NOT NULL,
     id_paket INT REFERENCES paket_member(id_paket) NOT NULL,
-    tanggal DATE NOT NULL,
-    total INT NOT NULL,
-    periode_berlaku INT NOT NULL
+    tanggal TIMESTAMP NOT NULL DEFAULT NOW(),
+    total INT NOT NULL
 );
 
 CREATE TABLE metode_pembayaran (
