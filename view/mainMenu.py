@@ -37,6 +37,7 @@ def admin():
     list_admin = uc.readAdmin()
     if (username,password) in list_admin:
       am.adminMenu()
+      break
     else:
       input("Username atau password tidak sesuai, Enter untuk kembali")
       break
@@ -45,9 +46,9 @@ def kasir():
   while True:
     os.system("cls")
     print("=== Login Kasir ===")
-    username = input("Masukkan username:")
-    password = input("Masukkan password:")
-    kasir = input("Masukkan Nama Kasir :")
+    username = input("Masukkan username :")
+    password = input("Masukkan password :")
+    nama_kasir = input("Masukkan Nama Kasir :")
     list_kasir = []
     for kasir in uc.readKasir():
       if kasir[4] == True:
@@ -56,9 +57,9 @@ def kasir():
     for karyawan in kc.read():
       if karyawan[5] == "kasir" and karyawan[7] == True:
         list_karyawan.append(karyawan[1])
-    if (username, password) in list_kasir and kasir in list_karyawan:
-      km.kasirMenu(kasir)
-    elif (username, password) in list_kasir and kasir not in list_karyawan:
+    if (username, password) in list_kasir and nama_kasir in list_karyawan:
+      km.kasirMenu(nama_kasir)
+    elif (username, password) in list_kasir and nama_kasir not in list_karyawan:
       input("Nama kasir tidak sesuai, Enter untuk kembali")
       break
     else:

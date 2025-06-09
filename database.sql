@@ -39,10 +39,15 @@ CREATE TABLE members (
     nomor_hp VARCHAR(20),
     alamat TEXT,
     tanggal_daftar DATE NOT NULL DEFAULT now(),
-    tanggal_kadaluarsa DATE,
-    status BOOLEAN NOT NULL DEFAULT true,
+    tanggal_berakhir DATE,
+    status BOOLEAN NOT NULL DEFAULT false,
     id_user INT REFERENCES users(id_user) NOT NULL
 );
+
+SELECT m.id_member,u.username,m.nama
+FROM members m
+JOIN users u ON m.id_user = u.id_user
+WHERE u.role = 'member';
 
 CREATE TABLE paket_member (
     id_paket SERIAL PRIMARY KEY,
@@ -69,11 +74,11 @@ CREATE TABLE metode_pembayaran (
 CREATE TABLE transaksi (
     id_transaksi SERIAL PRIMARY KEY,
     id_member INT REFERENCES members(id_member),
-    id_kasir INT REFERENCES kasir(id_kasir) NOT NULL,
-    id_metode INT REFERENCES metode_pembayaran(id_metode) NOT NULL,
-    tanggal DATE NOT NULL,
-    uang INT NOT NULL,
-    total INT NOT NULL
+    id_karyawan INT REFERENCES karyawan(id_karyawan) NOT NULL,
+    id_metode INT REFERENCES metode_pembayaran(id_metode),
+    tanggal DATE NOT NULL DEFAULT NOW(),
+    uang INT,
+    total INT
 );
 
 CREATE TABLE layanan (
@@ -89,5 +94,5 @@ CREATE TABLE detail_transaksi (
     id_layanan INT REFERENCES layanan(id_layanan) NOT NULL,
     plat VARCHAR(15) NOT NULL,
     nama_kendaraan VARCHAR(50) NOT NULL,
-    subtotal INT NOT NULL
+    subtotal INT
 );

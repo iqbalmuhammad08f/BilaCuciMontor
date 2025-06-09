@@ -51,3 +51,16 @@ def read():
     return None
   finally:
     conn.close()
+
+def getIdKaryawan(nama):
+  conn, cur = db.connectDB()
+  try:
+    query = "SELECT id_karyawan FROM karyawan WHERE nama=%s"
+    cur.execute(query, (nama,))
+    data = cur.fetchone()
+    return data[0] if data else None
+  except Exception:
+    input("terjadi kesalahan pada controller getIdKaryawan")
+    return None
+  finally:
+    conn.close()

@@ -35,7 +35,7 @@ def adminMenu():
     elif user == "7":
       print()
     elif user == "0":
-      print()
+      break
     else:
       input("Input tidak sesuai, Enter untuk mengulangi")
 
