@@ -91,6 +91,7 @@ def pembayaranLangganan(id_member, status, tanggal_berakhir, tanggal_sekarang):
 
 def historiMencuci(id_member):
     # Implementasi histori mencuci
+    
     pass
 
 def historiPembayaranLangganan(id_member):
