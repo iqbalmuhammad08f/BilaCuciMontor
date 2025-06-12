@@ -141,3 +141,5 @@ def transaksi(id_karyawan):
       input("Input tidak valid, tekan Enter untuk mengulangi")
       continue
     
+def lihatLaporan():
+  return None
