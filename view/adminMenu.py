@@ -481,3 +481,5 @@ def mengelolaHargaMember():
     else:
       input("Input tidak sesuai, Enter untuk mengulangi")
 
+def melihatMember():
+  return None
