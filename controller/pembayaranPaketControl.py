@@ -25,3 +25,16 @@ def readOne(id_member):
         return None
     finally:
         conn.close()
+
+def getAllTotalPembayaran():
+    conn, cur = db.connectDB()
+    try:
+        query = "SELECT SUM(pm.total) FROM pembayaran_member pm"
+        cur.execute(query)
+        data = cur.fetchall()
+        return data
+    except Exception as e:
+        input(f"Terjadi kesalahan pada controller getAll: {e}")
+        return None
+    finally:
+        conn.close()

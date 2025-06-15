@@ -2,6 +2,8 @@ import controller.usersControl as uc
 import controller.karyawanControl as kc
 import controller.layananControl as lc
 import controller.paketMemberControl as pmc
+import controller.transaksiControl as tc
+import controller.pembayaranPaketControl as ppc
 
 import os
 import pandas as pd
@@ -21,7 +23,7 @@ def adminMenu():
     print("0. logout")
     user = input("Masukkan pilihan :")
     if user == "1":
-      print()
+      melihatLaporan()
     elif user == "2":
       mengelolaAkunKasir()
     elif user == "3":
@@ -483,3 +485,25 @@ def mengelolaHargaMember():
 
 def melihatMember():
   return None
+
+def melihatLaporan():
+  while True:
+    total_transaksi = tc.getAllTransaksi()[0][0]
+    total_pembayaran = ppc.getAllTotalPembayaran()[0][0]
+    os.system("cls")
+    print("=== Laporan Keuangan ===")
+    print(f"Total Transaksi: {total_transaksi}")
+    print(f"Total Pembayaran Member: {total_pembayaran}")
+    print(f"Total Pendapatan: {total_transaksi + total_pembayaran}")
+    print("\n1. Transakasi")
+    print("2. Pembayaran Member")
+    print("0. Exit")
+    user = input("Masukkan pilihan: ")
+    if user == "1":
+      print()
+    elif user == "2":
+      print()
+    elif user == "0":
+      break
+    else:
+      input("Input tidak sesuai, Enter untuk mengulangi")

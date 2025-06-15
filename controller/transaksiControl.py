@@ -39,3 +39,16 @@ def updatetotalTransaksi(id_transaksi, total):
         return None
     finally:
         conn.close()
+
+def getAllTransaksi():
+    conn, cur = db.connectDB()
+    try:
+        query = "SELECT SUM(transaksi.total) FROM transaksi"
+        cur.execute(query)
+        total = cur.fetchall()
+        return total
+    except Exception as e:
+        input(f"Terjadi kesalahan pada controller update total transaksi: {e}")
+        return None
+    finally:
+        conn.close()

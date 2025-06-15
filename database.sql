@@ -7,11 +7,6 @@ CREATE TABLE users (
     status BOOLEAN NOT NULL DEFAULT true
 );
 
-INSERT INTO users(username,password,role) VALUES('jamal','123','member');
-insert into admins(nama,email,nomor_hp,id_user) values('admin','admingmailcom','087711713783','1')
-
-select * from admins
-
 CREATE TABLE admins (
     id_admin SERIAL PRIMARY KEY,
     nama VARCHAR(50) NOT NULL,
@@ -43,11 +38,6 @@ CREATE TABLE members (
     status BOOLEAN NOT NULL DEFAULT false,
     id_user INT REFERENCES users(id_user) NOT NULL
 );
-
-SELECT m.id_member,u.username,m.nama
-FROM members m
-JOIN users u ON m.id_user = u.id_user
-WHERE u.role = 'member';
 
 CREATE TABLE paket_member (
     id_paket SERIAL PRIMARY KEY,
@@ -96,3 +86,8 @@ CREATE TABLE detail_transaksi (
     nama_kendaraan VARCHAR(50) NOT NULL,
     subtotal INT
 );
+
+select sum(transaksi.total)
+from transaksi
+
+SELECT SUM(transaksi.total) FROM transaksi
