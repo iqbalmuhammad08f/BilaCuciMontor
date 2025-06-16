@@ -101,3 +101,7 @@ SELECT DATE(tanggal), sum(total) FROM pembayaran_member GROUP BY DATE(tanggal), 
 SELECT m.tanggal_daftar,u.username, m.nama, COALESCE(TO_CHAR(m.tanggal_berakhir, 'YYYY-MM-DD'), 'non aktif') as tanggal_berakhir  FROM users u JOIN members m ON u.id_user = m.id_user ORDER BY m.tanggal_daftar DESC
 
 SELECT to_char(dt.tanggal, 'yyyy-mm-dd, hh:mi:ss'), k.nama, m.nama, dt.subtotal, mp.nama_metode,dt.nama_kendaraan, dt.plat FROM transaksi t FUll JOIN detail_transaksi dt on t.id_transaksi = dt.id_transaksi FUll JOIN karyawan k ON t.id_karyawan = k.id_karyawan FULL JOIN metode_pembayaran mp ON mp.id_metode = t.id_metode LEFT JOIN members m ON t.id_member = m.id_member ORDER BY dt.tanggal DESC
+
+SELECT to_char(dt.tanggal, 'yyyy-mm-dd, hh:mi:ss'), k.nama, m.nama,dt.nama_kendaraan, dt.plat FROM transaksi t JOIN detail_transaksi dt on t.id_transaksi = dt.id_transaksi JOIN karyawan k ON t.id_karyawan = k.id_karyawan JOIN members m ON t.id_member = m.id_member WHERE m.id_member = 2 ORDER BY dt.tanggal DESC;
+
+SELECT u.username, u.password, m.nama,m.email,m.nomor_hp,m.alamat FROM members m JOIN users u ON m.id_user=u.id_user WHERE id_member = 2

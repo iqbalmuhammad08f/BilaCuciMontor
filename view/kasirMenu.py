@@ -15,13 +15,13 @@ def kasirMenu(nama_kasir):
     print("=== Menu Kasir ===")
     print(f"Selamat datang, {nama_kasir}")
     print("1. Transaksi")
-    print("2. Lihat Laporan")
+    print("2. Lihat Laporan Hari Ini")
     print("0. Logout")
     user = input("Masukkan pilihan :")
     if user == "1":
       transaksi(id_karyawan)
     elif user == "2":
-      print()
+      lihatLaporan()
     elif user == "0":
       break
     else:
@@ -142,4 +142,16 @@ def transaksi(id_karyawan):
       continue
     
 def lihatLaporan():
-  return None
+  laporan_today = tc.getNowTransaksi()
+  if laporan_today != []:
+    df = pd.DataFrame(laporan_today,columns=["Tanggal","Kasir","Member","Subtotal","Pembayaran","Kendaraan","Plat"])
+    df.index += 1
+    total = sum([p[3] for p in laporan_today]) 
+    os.system("cls")
+    print("=== Laporan Hari Ini ===")
+    print(f"Pemasukan hari ini: {total}")
+    print(tb.tabulate(df, headers="keys", tablefmt="psql"))
+    input("Enter untuk kembali")
+  else:
+    input("Belum ada laporan untu hari ini, Enter untuk kembali")
+    

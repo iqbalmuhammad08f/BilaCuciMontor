@@ -40,10 +40,23 @@ def add(id_user,nama):
   finally:
     conn.close()
 
-def readOne(id_member):
+def readOne(id_user):
   conn, cur = db.connectDB()
   try:
     query = "SELECT * FROM members WHERE id_user = %s"
+    cur.execute(query, (id_user,))
+    data = cur.fetchone()
+    return data
+  except Exception:
+    input("Terjadi kesalahan pada controller readOne members,", Exception)
+    return None
+  finally:
+    conn.close()
+
+def readOneMember(id_member):
+  conn, cur = db.connectDB()
+  try:
+    query = "SELECT u.username, u.password, m.nama,m.email,m.nomor_hp,m.alamat FROM members m JOIN users u ON m.id_user=u.id_user WHERE id_member = %s"
     cur.execute(query, (id_member,))
     data = cur.fetchone()
     return data
@@ -73,6 +86,18 @@ def updateStatus():
     conn.commit()
   except Exception:
     input("Terjadi kesalahan pada controller updateStatus members,", Exception)
+    return None
+  finally:
+    conn.close()
+
+def updateDataDiri(id_member, email,nomor,alamat):
+  conn, cur = db.connectDB()
+  try:
+    query = "UPDATE members SET email = %s, nomor_hp = %s, alamat = %s WHERE id_member = %s"
+    cur.execute(query,(email,nomor,alamat,id_member))
+    conn.commit()
+  except Exception:
+    input("Terjadi kesalahan pada controller updateDataDiri,", Exception)
     return None
   finally:
     conn.close()

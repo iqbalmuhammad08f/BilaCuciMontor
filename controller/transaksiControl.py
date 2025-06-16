@@ -78,3 +78,29 @@ def getAllDetailTransaksi():
         return None
     finally:
         conn.close()
+
+def getNowTransaksi():
+    conn, cur = db.connectDB()
+    try:
+        query = "SELECT to_char(dt.tanggal, 'yyyy-mm-dd, hh:mi:ss'), k.nama, m.nama, dt.subtotal, mp.nama_metode,dt.nama_kendaraan, dt.plat FROM transaksi t FUll JOIN detail_transaksi dt on t.id_transaksi = dt.id_transaksi FUll JOIN karyawan k ON t.id_karyawan = k.id_karyawan FULL JOIN metode_pembayaran mp ON mp.id_metode = t.id_metode LEFT JOIN members m ON t.id_member = m.id_member WHERE DATE(dt.tanggal) = CURRENT_DATE ORDER BY dt.tanggal DESC"
+        cur.execute(query)
+        data = cur.fetchall()
+        return data
+    except Exception as e:
+        input(f"Terjadi kesalahan pada controller getalltransaksi: {e}")
+        return None
+    finally:
+        conn.close()
+
+def getOneMemberTrasaksi(id_member):
+    conn, cur = db.connectDB()
+    try:
+        query = "SELECT to_char(dt.tanggal, 'yyyy-mm-dd, hh:mi:ss'), k.nama, m.nama,dt.nama_kendaraan, dt.plat FROM transaksi t JOIN detail_transaksi dt on t.id_transaksi = dt.id_transaksi JOIN karyawan k ON t.id_karyawan = k.id_karyawan JOIN members m ON t.id_member = m.id_member WHERE m.id_member = 2 ORDER BY dt.tanggal DESC"
+        cur.execute(query)
+        data = cur.fetchall()
+        return data
+    except Exception as e:
+        input(f"Terjadi kesalahan pada controller getalltransaksi: {e}")
+        return None
+    finally:
+        conn.close()
