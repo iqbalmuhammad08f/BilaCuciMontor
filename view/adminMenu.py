@@ -4,6 +4,7 @@ import controller.layananControl as lc
 import controller.paketMemberControl as pmc
 import controller.transaksiControl as tc
 import controller.pembayaranPaketControl as ppc
+import controller.membersControl as mc
 
 import os
 import pandas as pd
@@ -33,9 +34,9 @@ def adminMenu():
     elif user == "5":
       mengelolaHargaMember()
     elif user == "6":
-      print()
+      melihatMember()
     elif user == "7":
-      print()
+      melihatHistoryTransaksi()
     elif user == "0":
       break
     else:
@@ -484,26 +485,59 @@ def mengelolaHargaMember():
       input("Input tidak sesuai, Enter untuk mengulangi")
 
 def melihatMember():
-  return None
+  os.system("cls")
+  list_member = mc.getAllMember()
+  df = pd.DataFrame(list_member, columns=["Tanggal daftar","Username","nama","Tanggal berakhir"])
+  df.index += 1
+  print("=== Melihat Member ===")
+  print(tb.tabulate(df, headers="keys", tablefmt="psql"))
+  input("Enter untuk kembali")
 
 def melihatLaporan():
+  def LaporanTransaksi():
+    os.system("cls")
+    print("=== Laporan Transaksi ===")
+    Laporan_transaksi = tc.getAllTransaksi()
+    df = pd.DataFrame(Laporan_transaksi,columns=["Tanggal", "Total"])
+    df.index += 1
+    print(tb.tabulate(df, headers="keys", tablefmt="psql"))
+    input("Enter untuk Kembali")
+      
+  def laporanPembayaran():
+    os.system("cls")
+    print("=== Laporan Pembayaran Member ===")
+    laporan_Pembayaran = ppc.getAllPembayaran()
+    df = pd.DataFrame(laporan_Pembayaran,columns=["Tanggal", "Total"])
+    df.index += 1
+    print(tb.tabulate(df, headers="keys", tablefmt="psql"))
+    input("Enter untuk Kembali")
+
   while True:
-    total_transaksi = tc.getAllTransaksi()[0][0]
+    total_transaksi = tc.getAllTotalTransaksi()[0][0]
     total_pembayaran = ppc.getAllTotalPembayaran()[0][0]
     os.system("cls")
     print("=== Laporan Keuangan ===")
     print(f"Total Transaksi: {total_transaksi}")
     print(f"Total Pembayaran Member: {total_pembayaran}")
     print(f"Total Pendapatan: {total_transaksi + total_pembayaran}")
-    print("\n1. Transakasi")
-    print("2. Pembayaran Member")
+    print("\n1. Laporan transakasi")
+    print("2. Laporan pembayaran Member")
     print("0. Exit")
     user = input("Masukkan pilihan: ")
     if user == "1":
-      print()
+      LaporanTransaksi()
     elif user == "2":
-      print()
+      laporanPembayaran()
     elif user == "0":
       break
     else:
       input("Input tidak sesuai, Enter untuk mengulangi")
+
+def melihatHistoryTransaksi():
+  os.system("cls")
+  print("=== History Transaksi ===")
+  history_transaksi = tc.getAllDetailTransaksi()
+  df = pd.DataFrame(history_transaksi,columns=["Tanggal","Kasir","Member","Subtotal","Pembayaran","Kendaraan","Plat"])
+  df.index += 1
+  print(tb.tabulate(df, headers="keys", tablefmt="psql"))
+  input("Enter untuk Kembali")

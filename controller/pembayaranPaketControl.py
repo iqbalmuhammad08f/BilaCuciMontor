@@ -38,3 +38,16 @@ def getAllTotalPembayaran():
         return None
     finally:
         conn.close()
+
+def getAllPembayaran():
+    conn, cur = db.connectDB()
+    try:
+        query = "SELECT DATE(tanggal), sum(total) FROM pembayaran_member GROUP BY DATE(tanggal), total ORDER BY DATE(tanggal) DESC"
+        cur.execute(query)
+        data = cur.fetchall()
+        return data
+    except Exception as e:
+        input(f"Terjadi kesalahan pada controller getalltransaksi: {e}")
+        return None
+    finally:
+        conn.close()

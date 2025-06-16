@@ -27,7 +27,6 @@ def readmember(username):
   finally:
     conn.close()
 
-print(readmember("jamal01"))
 
 def add(id_user,nama):
   conn, cur = db.connectDB()
@@ -77,3 +76,16 @@ def updateStatus():
     return None
   finally:
     conn.close()
+
+def getAllMember():
+  conn, cur = db.connectDB()
+  try:
+      query = "SELECT m.tanggal_daftar,u.username, m.nama, COALESCE(TO_CHAR(m.tanggal_berakhir, 'YYYY-MM-DD'), 'non aktif') as tanggal_berakhir  FROM users u JOIN members m ON u.id_user = m.id_user ORDER BY m.tanggal_daftar DESC"
+      cur.execute(query)
+      data = cur.fetchall()
+      return data
+  except Exception as e:
+      input(f"Terjadi kesalahan pada controller getalltransaksi: {e}")
+      return None
+  finally:
+      conn.close()
