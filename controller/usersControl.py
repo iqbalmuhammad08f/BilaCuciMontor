@@ -1,5 +1,4 @@
 import controller.database as db
-# import database as db
 
 def readAdmin():
   conn, cur = db.connectDB()
